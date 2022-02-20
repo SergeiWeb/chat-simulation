@@ -1,14 +1,18 @@
 const chats = document.querySelectorAll('.chat')
+const htmlContain = document.querySelector('.html__contain')
 
 let COUNTER = 0
 let res = 0
+
+chats.forEach((chat, id) =>
+	chat.setAttribute('data-play', id === 0 ? true : false)
+)
 
 const chatFunc = () => {
 	res = 0
 
 	const chatElements = chats[COUNTER].querySelectorAll('.chat-element')
 	const chatContainer = chats[COUNTER].querySelector('.chat-container')
-	const htmlContain = chats[COUNTER].querySelector('.html_contain')
 
 	chats.forEach(chat => {
 		if (chat.dataset.play === 'false') {

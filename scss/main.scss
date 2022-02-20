@@ -22,12 +22,15 @@ body {
 	justify-content: center;
 }
 
+.html__contain {
+	height: 320px;
+}
+
 .chat {
 	transition: var(--transition);
 
 	&[data-play='false'] {
 		opacity: 0;
-		// display: none;
 	}
 
 	&[data-play='true'] {
@@ -43,7 +46,6 @@ body {
 		display: flex;
 		flex-direction: column;
 		width: 360px;
-		height: 320px;
 		overflow-y: scroll;
 		scrollbar-width: thin;
 		transition: var(--transition);
