@@ -12,14 +12,18 @@ const chatFunc = () => {
 
 	chats.forEach(chat => {
 		if (chat.dataset.play === 'false') {
-			document
-				.querySelectorAll('.chat-element')
-				.forEach(chaEl => {
-					chaEl.classList.remove('show')
-					chaEl.style.cssText = `
+			chat.style.display = 'none'
+
+			chat.classList.remove('hide')
+
+			document.querySelectorAll('.chat-element').forEach(chaEl => {
+				chaEl.classList.remove('show')
+				chaEl.style.cssText = `
 						display: none !important;
 					`
-				})
+			})
+		} else {
+			chat.style.display = 'flex'
 		}
 	})
 
@@ -74,11 +78,15 @@ const chatFunc = () => {
 
 	setTimeout(() => {
 		chats.forEach(el => (el.dataset.play = false))
+		if (chats[COUNTER - 1]) {
+			chats[COUNTER - 1].classList.add('hide')
+		}
+
 		setTimeout(() => {
 			chats[COUNTER].display = 'flex'
 			chats[COUNTER].dataset.play = true
 			chatFunc()
-		}, 4000)
+		}, 8000)
 	}, res)
 }
 

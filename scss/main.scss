@@ -24,16 +24,19 @@ body {
 
 .chat {
 	transition: var(--transition);
-	transform: translateY(80px);
 
 	&[data-play='false'] {
 		opacity: 0;
-		display: none;
+		// display: none;
 	}
 
 	&[data-play='true'] {
 		opacity: 1;
 		transform: translateY(0);
+	}
+
+	&.hide {
+		transform: translateY(-80px);
 	}
 
 	&-container {
