@@ -43,6 +43,7 @@ body {
 		height: 320px;
 		overflow-y: scroll;
 		scrollbar-width: thin;
+		transition: var(--transition);
 
 		&::-webkit-scrollbar {
 			display: none;
