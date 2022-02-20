@@ -74,9 +74,11 @@ const chatFunc = () => {
 
 	setTimeout(() => {
 		chats.forEach(el => (el.dataset.play = false))
-		chats[COUNTER].display = 'flex'
-		chats[COUNTER].dataset.play = true
-		chatFunc()
+		setTimeout(() => {
+			chats[COUNTER].display = 'flex'
+			chats[COUNTER].dataset.play = true
+			chatFunc()
+		}, 4000)
 	}, res)
 }
 
