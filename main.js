@@ -1,55 +1,83 @@
-const chatElements = document.querySelectorAll('.chat-element')
-const chatContainer = document.querySelector('.chat-container')
-const htmlContain = document.querySelector('.html_contain')
+const chats = document.querySelectorAll('.chat')
 
-if (htmlContain) {
-	chatContainer.style.height = `${htmlContain.offsetHeight}px`
-}
+let COUNTER = 0
+let res = 0
 
-let count = 0
-let array = []
+const chatFunc = () => {
+	res = 0
 
-chatElements.forEach((elem, idx) => {
-	elem.style.opacity = '0'
-	array.push(elem.dataset.timeout)
-})
+	const chatElements = chats[COUNTER].querySelectorAll('.chat-element')
+	const chatContainer = chats[COUNTER].querySelector('.chat-container')
+	const htmlContain = chats[COUNTER].querySelector('.html_contain')
 
-
-const scrollToSection = target => {
-	const topOffset = 0
-	const elementPosition = target.getBoundingClientRect().top
-	const offsetPosition = elementPosition - topOffset
-
-	window.scrollBy({
-		top: offsetPosition,
-		behavior: 'smooth',
+	chats.forEach(chat => {
+		if (chat.dataset.play === 'false') {
+			document
+				.querySelectorAll('.chat-element')
+				.forEach(chaEl => {
+					chaEl.classList.remove('show')
+					chaEl.style.cssText = `
+						display: none !important;
+					`
+				})
+		}
 	})
-}
 
-const scrolDown = height => {
-	chatContainer.scrollBy({
-		top: height,
-		behavior: 'smooth',
+	if (htmlContain) {
+		chatContainer.style.height = `${htmlContain.offsetHeight}px`
+	}
+
+	let count = 0
+	let array = []
+
+	chatElements.forEach((elem, idx) => {
+		elem.style.opacity = '0'
+		array.push(elem.dataset.timeout)
 	})
-}
 
-const plus = () => {
-	chatElements[count].style.cssText = `
-		opacity: 0;
-		display: flex !important;
-	`
+	array.map(sec => (res += +sec))
+
+	const scrolDown = height => {
+		chatContainer.scrollBy({
+			top: height,
+			behavior: 'smooth',
+		})
+	}
+
+	const showMessage = () => {
+		chatElements[count].style.cssText = `
+			opacity: 0;
+			display: flex !important;
+		`
+
+		setTimeout(() => {
+			chatElements[count].style.opacity = '1'
+			chatElements[count].classList.add('show')
+			scrolDown(chatContainer.scrollHeight)
+			count++
+		}, Math.min(...array) / 2)
+
+		if (count < chatElements.length - 1) {
+			setTimeout(showMessage, +chatElements[count].dataset.timeout)
+		}
+	}
+
+	if (chatElements.length) {
+		showMessage()
+	}
+
+	COUNTER++
+
+	if (!chats[COUNTER]) {
+		COUNTER = 0
+	}
 
 	setTimeout(() => {
-		chatElements[count].style.opacity = '1'
-		chatElements[count].classList.add('show')
-		scrolDown(chatContainer.scrollHeight)
-		count++
-	}, Math.min(...array) / 2)
-
-	if (count < chatElements.length - 1)
-		setTimeout(plus, +chatElements[count].dataset.timeout)
+		chats.forEach(el => (el.dataset.play = false))
+		chats[COUNTER].display = 'flex'
+		chats[COUNTER].dataset.play = true
+		chatFunc()
+	}, res)
 }
 
-if (chatElements.length) {
-	plus()
-}
+chatFunc()

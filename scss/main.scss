@@ -10,7 +10,7 @@
 
 :root {
 	--transition: all 0.3s linear;
-	--delay: 0.2s
+	--delay: 0.2s;
 }
 
 body {
@@ -23,6 +23,19 @@ body {
 }
 
 .chat {
+	transition: var(--transition);
+	transform: translateY(80px);
+
+	&[data-play='false'] {
+		opacity: 0;
+		display: none;
+	}
+
+	&[data-play='true'] {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
 	&-container {
 		display: flex;
 		flex-direction: column;
@@ -87,7 +100,7 @@ body {
 			margin-left: 8px;
 
 			& .mark {
-				color: #039BE5;
+				color: #039be5;
 				display: inline-flex;
 			}
 		}
