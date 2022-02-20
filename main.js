@@ -86,7 +86,7 @@ const chatFunc = () => {
 			chats[COUNTER].display = 'flex'
 			chats[COUNTER].dataset.play = true
 			chatFunc()
-		}, 4000)
+		}, 1000)
 	}, res)
 }
 
